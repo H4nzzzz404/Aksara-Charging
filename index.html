@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AKSARA - EV Home Charging Solutions</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            cyan: '#00F0FF',
+                            green: '#00E676',
+                            blue: '#1E40AF',
+                            darkblue: '#0B192C',
+                            accent: '#FFD700'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #00e676 0%, #00d2ff 45%, #0052d4 100%);
+        }
+        .card-shadow {
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.08);
+        }
+        .badge-gradient {
+            background: linear-gradient(90deg, #10B981 0%, #059669 100%);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0284c7;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0369a1;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- TOP NAVIGATION HEADER -->
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200 transition-all duration-200 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- LOGO AKSARA -->
+            <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <img src="1793259717591_4500463-removebg-preview.png" alt="Aksara Daya Fondasi Logo" class="h-12 w-auto object-contain" onerror="this.onerror=null; this.src='https://placehold.co/180x60/0b192c/ffffff?text=AKSARA';">
+            </div>
+
+            <!-- TOP BANNER INDICATOR (SLIDER INDICATOR DUMMY FOR DECORATION) -->
+            <div class="hidden md:flex items-center bg-slate-100 rounded-full px-4 py-1.5 border border-slate-200/80">
+                <span class="w-3 h-3 rounded-full bg-blue-600 mr-2 animate-pulse"></span>
+                <span class="text-xs font-semibold text-slate-600">Garansi Resmi & Instalasi Terstandarisasi PLN</span>
+            </div>
+
+            <!-- ACTION BUTTONS (CHAT & CART) -->
+            <div class="flex items-center gap-3">
+                <!-- Chat Icon Button -->
+                <button onclick="toggleModal('chatModal')" title="Hubungi Kami" class="relative p-3 rounded-full bg-blue-50 hover:bg-blue-100 text-blue-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+                    <i class="fa-solid fa-comments text-xl"></i>
+                    <span class="absolute -top-1 -right-1 flex h-3 w-3">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                    </span>
+                </button>
+
+                <!-- Cart Icon Button -->
+                <button onclick="toggleModal('cartModal')" title="Keranjang Belanja" class="relative p-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white transition duration-200 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500/50 flex items-center justify-center">
+                    <i class="fa-solid fa-cart-shopping text-xl"></i>
+                    <span id="cartBadge" class="absolute -top-1.5 -right-1.5 bg-rose-500 text-white text-xs font-black rounded-full h-5 min-w-[20px] px-1 flex items-center justify-center border-2 border-white shadow-sm scale-0 transition-transform duration-200">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8 flex-grow w-full">
+
+        <!-- BANNER UTAMA / HERO SECTION -->
+        <section class="hero-gradient rounded-3xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8">
+            <!-- Background Decorative Ornaments -->
+            <div class="absolute -top-16 -right-16 w-64 h-64 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
+            <div class="absolute -bottom-16 -left-16 w-64 h-64 bg-blue-900/20 rounded-full blur-2xl pointer-events-none"></div>
+
+            <div class="z-10 max-w-xl text-center md:text-left space-y-4">
+                <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-white border border-white/30 shadow-sm">
+                    <i class="fa-solid fa-bolt text-amber-300"></i> Fast & Reliable Charging
+                </div>
+                <h2 class="text-3xl sm:text-5xl font-black leading-tight tracking-tight drop-shadow-sm">
+                    WALL CHARGING
+                </h2>
+                <p class="text-base sm:text-lg font-medium text-slate-100 leading-relaxed drop-shadow-sm">
+                    Solusi Charging di rumah yang <span class="font-bold underline decoration-emerald-300 decoration-2">Aman</span>, <span class="font-bold underline decoration-cyan-300 decoration-2">Nyaman</span>, dan <span class="font-bold underline decoration-yellow-300 decoration-2">Terpercaya</span>.
+                </p>
+                <div class="flex items-center justify-center md:justify-start gap-2 pt-2">
+                    <span class="w-8 h-2 rounded-full bg-white"></span>
+                    <span class="w-3 h-2 rounded-full bg-white/50"></span>
+                    <span class="w-3 h-2 rounded-full bg-white/50"></span>
+                </div>
+            </div>
+
+            <!-- Illustration Graphics -->
+            <div class="z-10 relative flex items-center justify-center">
+                <div class="bg-white/15 backdrop-blur-md border border-white/30 rounded-2xl p-4 sm:p-6 shadow-2xl flex items-center gap-4 transition hover:scale-105 duration-300">
+                    <!-- SVG EV Charger Illustration -->
+                    <div class="w-28 sm:w-36 h-36 sm:h-44 bg-slate-900 rounded-xl p-3 flex flex-col justify-between border-2 border-slate-700 shadow-inner relative">
+                        <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                            <span class="text-[9px] font-mono text-cyan-400">7.7 kW</span>
+                            <div class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
+                        </div>
+                        <div class="text-center py-2">
+                            <i class="fa-solid fa-charging-station text-3xl text-cyan-400 my-1"></i>
+                            <p class="text-[10px] font-bold text-slate-300 uppercase">EV Charger</p>
+                        </div>
+                        <div class="bg-slate-800 rounded p-1 text-center">
+                            <span class="text-[8px] text-emerald-400 font-mono">READY TO CHARGE</span>
+                        </div>
+                    </div>
+                    <!-- Distribution Box Illustration -->
+                    <div class="w-20 sm:w-24 h-28 sm:h-32 bg-slate-200 border-2 border-slate-300 rounded-lg p-2 flex flex-col justify-between text-slate-700 shadow-inner">
+                        <div class="bg-slate-300 h-3 rounded flex items-center justify-center">
+                            <span class="text-[8px] font-bold text-slate-600">MCB BOX</span>
+                        </div>
+                        <div class="flex justify-center gap-1 my-1">
+                            <div class="w-2 h-6 bg-slate-800 rounded-sm"></div>
+                            <div class="w-2 h-6 bg-blue-600 rounded-sm"></div>
+                        </div>
+                        <div class="border-t border-slate-300 pt-1 text-center">
+                            <i class="fa-solid fa-shield-halved text-emerald-600 text-xs"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DAFTAR PAKET / PRODUCTS SECTION -->
+        <section class="space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-4">
+                <div>
+                    <h3 class="text-2xl font-black text-slate-900 tracking-tight">Pilih Paket Charging Anda</h3>
+                    <p class="text-sm text-slate-500">Sesuaikan dengan kebutuhan daya dan instalasi rumah Anda</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- CARD 1: PAKET HOME CHARGING + INSTALASI -->
+                <div class="bg-white rounded-3xl p-6 border-2 border-blue-500/30 card-shadow flex flex-col justify-between relative hover:border-blue-500 transition-all duration-300">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="text-xl font-black text-slate-900 leading-tight">PAKET HOME CHARGING<br><span class="text-blue-600">+ INSTALASI</span></h4>
+                                <span class="inline-block mt-2 px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full">
+                                    <i class="fa-solid fa-circle-check mr-1"></i> Praktis & siap pakai
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Price -->
+                        <div class="py-2">
+                            <span class="text-3xl font-black text-slate-900">Rp 8.500.000</span>
+                        </div>
+
+                        <!-- Highlights Preview -->
+                        <ul class="text-sm text-slate-600 space-y-2 border-t border-slate-100 pt-4">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> Wallcharger 7.7 kW</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> Kartu RFID (2 Buah)</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> Kabel NYY 3x6mm 3 Meter</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> MCB Set Box & Grounding</li>
+                        </ul>
+                    </div>
+
+                    <!-- Quantity & Actions -->
+                    <div class="mt-6 pt-4 border-t border-slate-100 space-y-3">
+                        <div class="flex items-center justify-between gap-4">
+                            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Jumlah:</span>
+                            <div class="flex items-center border-2 border-slate-200 rounded-xl overflow-hidden bg-slate-50">
+                                <button onclick="adjustQty('qty1', -1)" class="w-10 h-10 flex items-center justify-center font-bold text-slate-600 hover:bg-slate-200 transition">-</button>
+                                <span id="qty1" class="w-10 text-center font-bold text-slate-800 text-sm">1</span>
+                                <button onclick="adjustQty('qty1', 1)" class="w-10 h-10 flex items-center justify-center font-bold text-slate-600 hover:bg-slate-200 transition">+</button>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <button onclick="openDetailModal('pkg1')" class="w-full py-3 px-4 rounded-xl border-2 border-blue-600 text-blue-600 hover:bg-blue-50 font-bold text-sm transition text-center flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-circle-info"></i> Detail Paket
+                            </button>
+                            <button onclick="addToCartFromCard('pkg1', 'qty1')" class="w-full py-3 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm transition shadow-md flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-cart-plus"></i> + Keranjang
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 2: PAKET LENGKAP -->
+                <div class="bg-white rounded-3xl p-6 border-2 border-emerald-500/40 card-shadow flex flex-col justify-between relative hover:border-emerald-500 transition-all duration-300">
+                    <!-- Best Buy Badge -->
+                    <div class="absolute -top-4 -right-2 bg-yellow-400 text-slate-900 font-black text-xs px-4 py-1.5 rounded-full shadow-lg border-2 border-white transform rotate-3 flex items-center gap-1">
+                        <i class="fa-solid fa-star"></i> BEST BUY
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="text-xl font-black text-slate-900 leading-tight">PAKET LENGKAP<br><span class="text-emerald-600">(INCL. SLO NIDI & METERAN)</span></h4>
+                                <span class="inline-block mt-2 px-3 py-1 bg-blue-100 text-blue-800 text-xs font-bold rounded-full">
+                                    <i class="fa-solid fa-gem mr-1"></i> Paket paling lengkap & HEMAT
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Price -->
+                        <div class="py-2">
+                            <span class="text-3xl font-black text-slate-900">Rp 14.500.000</span>
+                        </div>
+
+                        <!-- Highlights Preview -->
+                        <ul class="text-sm text-slate-600 space-y-2 border-t border-slate-100 pt-4">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> Wallcharger 7.7 kW</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-file-signature text-blue-600 font-bold"></i> <span class="font-bold text-slate-800">Termasuk SLO NIDI</span></li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-bolt text-amber-500 font-bold"></i> <span class="font-bold text-slate-800">Meteran Baru PLN 7.7 kW</span></li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> RFID Cards, Cables, MCB, Grounding</li>
+                        </ul>
+                    </div>
+
+                    <!-- Quantity & Actions -->
+                    <div class="mt-6 pt-4 border-t border-slate-100 space-y-3">
+                        <div class="flex items-center justify-between gap-4">
+                            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Jumlah:</span>
+                            <div class="flex items-center border-2 border-slate-200 rounded-xl overflow-hidden bg-slate-50">
+                                <button onclick="adjustQty('qty2', -1)" class="w-10 h-10 flex items-center justify-center font-bold text-slate-600 hover:bg-slate-200 transition">-</button>
+                                <span id="qty2" class="w-10 text-center font-bold text-slate-800 text-sm">1</span>
+                                <button onclick="adjustQty('qty2', 1)" class="w-10 h-10 flex items-center justify-center font-bold text-slate-600 hover:bg-slate-200 transition">+</button>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <button onclick="openDetailModal('pkg2')" class="w-full py-3 px-4 rounded-xl border-2 border-emerald-600 text-emerald-700 hover:bg-emerald-50 font-bold text-sm transition text-center flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-circle-info"></i> Detail Paket
+                            </button>
+                            <button onclick="addToCartFromCard('pkg2', 'qty2')" class="w-full py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm transition shadow-md flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-cart-plus"></i> + Keranjang
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- VALUE PROPOSITION / KEUNGGULAN SECTION -->
+        <section class="space-y-4 pt-4">
+            <h3 class="text-xl font-black text-slate-900 tracking-tight text-center sm:text-left">Keunggulan Layanan AKSARA</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+                <!-- Value 1 -->
+                <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-start gap-4 hover:border-blue-300 transition">
+                    <div class="w-12 h-12 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0 text-xl shadow-md">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div>
+                        <h5 class="font-extrabold text-slate-900 text-base">AMAN</h5>
+                        <p class="text-xs text-slate-500 mt-1 leading-snug">Instalasi sesuai standar kelistrikan PLN & teruji aman.</p>
+                    </div>
+                </div>
+
+                <!-- Value 2 -->
+                <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-start gap-4 hover:border-blue-300 transition">
+                    <div class="w-12 h-12 rounded-xl bg-blue-900 text-white flex items-center justify-center shrink-0 text-xl shadow-md">
+                        <i class="fa-solid fa-house-laptop"></i>
+                    </div>
+                    <div>
+                        <h5 class="font-extrabold text-slate-900 text-base">NYAMAN</h5>
+                        <p class="text-xs text-slate-500 mt-1 leading-snug">Praktis, tinggal colok dan charging di rumah kapan saja.</p>
+                    </div>
+                </div>
+
+                <!-- Value 3 -->
+                <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-start gap-4 hover:border-blue-300 transition">
+                    <div class="w-12 h-12 rounded-xl bg-cyan-500 text-white flex items-center justify-center shrink-0 text-xl shadow-md">
+                        <i class="fa-solid fa-bolt-lightning"></i>
+                    </div>
+                    <div>
+                        <h5 class="font-extrabold text-slate-900 text-base">CEPAT</h5>
+                        <p class="text-xs text-slate-500 mt-1 leading-snug">Daya 7.7 kW stabil, efisien, dan pengisian optimal.</p>
+                    </div>
+                </div>
+
+                <!-- Value 4 -->
+                <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-start gap-4 hover:border-blue-300 transition">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500 text-white flex items-center justify-center shrink-0 text-xl shadow-md">
+                        <i class="fa-solid fa-award"></i>
+                    </div>
+                    <div>
+                        <h5 class="font-extrabold text-slate-900 text-base">TERPERCAYA</h5>
+                        <p class="text-xs text-slate-500 mt-1 leading-snug">Garansi resmi produk dan layanan purna jual responsif.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-white border-t border-slate-800 mt-12 py-8">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <img src="1793259717591_4500463-removebg-preview.png" alt="Aksara Daya Fondasi Logo" class="h-10 w-auto object-contain bg-white/10 p-1 rounded-lg" onerror="this.onerror=null; this.src='https://placehold.co/180x60/0b192c/ffffff?text=AKSARA';">
+                <div>
+                    <span class="font-bold text-lg">AKSARA DAYA FONDASI</span>
+                    <p class="text-xs text-slate-400">Solusi Lengkap EV Home Charging</p>
+                </div>
+            </div>
+
+            <!-- Quick Contact Badges -->
+            <div class="flex flex-wrap items-center justify-center gap-4 text-xs text-slate-300">
+                <a href="https://wa.me/6285959250438" target="_blank" class="hover:text-emerald-400 transition flex items-center gap-1.5">
+                    <i class="fa-brands fa-whatsapp text-emerald-400 text-base"></i> +62 859-5925-0438
+                </a>
+                <a href="https://instagram.com/aksara.ev_homecharging" target="_blank" class="hover:text-pink-400 transition flex items-center gap-1.5">
+                    <i class="fa-brands fa-instagram text-pink-400 text-base"></i> @aksara.ev_homecharging
+                </a>
+            </div>
+
+            <p class="text-xs text-slate-500">&copy; 2026 AKSARA. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+
+    <!-- ==================== MODALS SECTION ==================== -->
+
+    <!-- 1. DETAIL PRODUCT MODAL -->
+    <div id="detailModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto card-shadow overflow-hidden transform transition-all duration-300">
+            <!-- Modal Header -->
+            <div id="modalHeader" class="bg-gradient-to-r from-blue-600 to-cyan-600 p-6 text-white relative">
+                <button onclick="toggleModal('detailModal')" class="absolute top-5 right-5 text-white/80 hover:text-white bg-black/20 rounded-full w-8 h-8 flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <span id="detailBadge" class="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-bold uppercase tracking-wider">Detail Paket</span>
+                <h3 id="detailTitle" class="text-2xl font-black mt-2">Nama Paket</h3>
+                <p id="detailPrice" class="text-xl font-extrabold text-amber-300 mt-1">Rp 0</p>
+            </div>
+
+            <!-- Modal Content (Include List) -->
+            <div class="p-6 space-y-4">
+                <h4 class="text-sm font-extrabold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                    <i class="fa-solid fa-box-open text-blue-600"></i> INCLUDE DALAM PAKET:
+                </h4>
+
+                <div id="detailIncludeList" class="space-y-2.5">
+                    <!-- Dynamic List loaded from JS -->
+                </div>
+
+                <div class="bg-blue-50 border border-blue-200 rounded-2xl p-4 flex items-start gap-3 mt-4">
+                    <i class="fa-solid fa-circle-info text-blue-600 text-lg shrink-0 mt-0.5"></i>
+                    <p class="text-xs text-blue-900 leading-relaxed">
+                        Seluruh pengerjaan dilakukan oleh teknisi berpengalaman sesuai dengan standar keselamatan dan kelistrikan PLN.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Modal Action Footer -->
+            <div class="p-6 bg-slate-50 border-t border-slate-100 flex items-center justify-end gap-3">
+                <button onclick="toggleModal('detailModal')" class="px-5 py-2.5 rounded-xl text-slate-600 font-bold text-sm hover:bg-slate-200 transition">Tutup</button>
+                <button id="modalAddToCartBtn" onclick="" class="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm transition shadow-md flex items-center gap-2">
+                    <i class="fa-solid fa-cart-plus"></i> Tambah Ke Keranjang
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 2. CONTACT & SOCIAL MEDIA MODAL -->
+    <div id="chatModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full card-shadow overflow-hidden transform transition-all duration-300">
+            <!-- Modal Header -->
+            <div class="bg-slate-900 p-6 text-white relative">
+                <button onclick="toggleModal('chatModal')" class="absolute top-5 right-5 text-slate-400 hover:text-white bg-slate-800 rounded-full w-8 h-8 flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <div class="w-12 h-12 rounded-2xl bg-emerald-500 flex items-center justify-center text-white text-2xl mb-3 shadow-lg">
+                    <i class="fa-solid fa-headset"></i>
+                </div>
+                <h3 class="text-xl font-black">Hubungi AKSARA EV</h3>
+                <p class="text-xs text-slate-400 mt-1">Layanan Informasi & Customer Support</p>
+            </div>
+
+            <!-- Contact Options -->
+            <div class="p-6 space-y-3">
+                <!-- WhatsApp Direct -->
+                <a href="https://wa.me/6285959250438" target="_blank" class="flex items-center justify-between p-4 rounded-2xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-900 transition group">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500 text-white flex items-center justify-center text-xl shadow-sm">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </div>
+                        <div>
+                            <span class="block text-xs font-bold text-emerald-700 uppercase">WhatsApp Official</span>
+                            <span class="text-sm font-extrabold">+62 859-5925-0438</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-emerald-600 group-hover:translate-x-1 transition"></i>
+                </a>
+
+                <!-- Instagram -->
+                <a href="https://instagram.com/aksara.ev_homecharging" target="_blank" class="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-800 transition group">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 text-white flex items-center justify-center text-lg">
+                            <i class="fa-brands fa-instagram"></i>
+                        </div>
+                        <div>
+                            <span class="block text-[10px] font-bold text-slate-500 uppercase">Instagram</span>
+                            <span class="text-xs font-bold">@aksara.ev_homecharging</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-xs text-slate-400 group-hover:text-slate-600"></i>
+                </a>
+
+                <!-- Threads -->
+                <a href="https://www.threads.net/@aksara.ev_homecharging" target="_blank" class="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-800 transition group">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-xl bg-black text-white flex items-center justify-center text-lg">
+                            <i class="fa-brands fa-threads"></i>
+                        </div>
+                        <div>
+                            <span class="block text-[10px] font-bold text-slate-500 uppercase">Threads</span>
+                            <span class="text-xs font-bold">@aksara.ev_homecharging</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-xs text-slate-400 group-hover:text-slate-600"></i>
+                </a>
+
+                <!-- Facebook -->
+                <a href="https://facebook.com/aksara.ev_homecharging" target="_blank" class="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-800 transition group">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center text-lg">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </div>
+                        <div>
+                            <span class="block text-[10px] font-bold text-slate-500 uppercase">Facebook</span>
+                            <span class="text-xs font-bold">aksara.ev_homecharging</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-xs text-slate-400 group-hover:text-slate-600"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 3. SHOPPING CART & CHECKOUT MODAL -->
+    <div id="cartModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto card-shadow overflow-hidden flex flex-col justify-between">
+            <!-- Modal Header -->
+            <div class="bg-blue-600 p-6 text-white relative flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-cart-shopping text-2xl"></i>
+                    <div>
+                        <h3 class="text-xl font-black">Keranjang Pesanan</h3>
+                        <p class="text-xs text-blue-100">Periksa pesanan & isi data penerima</p>
+                    </div>
+                </div>
+                <button onclick="toggleModal('cartModal')" class="text-white/80 hover:text-white bg-black/20 rounded-full w-8 h-8 flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="p-6 space-y-6 flex-grow">
+                <!-- Cart Items List -->
+                <div class="space-y-3">
+                    <h4 class="text-xs font-extrabold text-slate-500 uppercase tracking-wider">Item Dipilih:</h4>
+                    <div id="cartItemsContainer" class="space-y-3">
+                        <!-- Items rendered via JS -->
+                    </div>
+                </div>
+
+                <!-- Buyer Info Form -->
+                <div id="checkoutFormSection" class="border-t border-slate-200 pt-5 space-y-4">
+                    <h4 class="text-xs font-extrabold text-slate-500 uppercase tracking-wider">Data Diri Pembeli:</h4>
+                    
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Nama Lengkap *</label>
+                            <input type="text" id="buyerName" placeholder="Contoh: Budi Santoso" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Nomor Telepon / WhatsApp / Email *</label>
+                            <input type="text" id="buyerContact" placeholder="Contoh: 081234567890 / email@domain.com" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Catatan Tambahan (Opsional)</label>
+                            <textarea id="buyerNotes" rows="2" placeholder="Lokasi rumah / jadwal pemasangan yang diinginkan..." class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none resize-none"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Price Summary -->
+                <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200 space-y-2">
+                    <div class="flex justify-between text-xs text-slate-600">
+                        <span>Subtotal Produk</span>
+                        <span id="cartSubtotal" class="font-bold">Rp 0</span>
+                    </div>
+                    <div class="flex justify-between text-xs text-slate-600">
+                        <span>Biaya Layanan & Admin</span>
+                        <span class="font-bold text-emerald-600">GRATIS</span>
+                    </div>
+                    <div class="border-t border-slate-200 pt-2 flex justify-between items-center text-slate-900 font-black">
+                        <span class="text-sm">TOTAL HARGA</span>
+                        <span id="cartGrandTotal" class="text-lg text-blue-600">Rp 0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Action Footer -->
+            <div class="p-6 bg-slate-50 border-t border-slate-100 space-y-2">
+                <button onclick="processCheckoutWA()" id="checkoutBtn" class="w-full py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-sm transition shadow-lg flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-lg"></i> Beli & Kirim Pesanan via WhatsApp
+                </button>
+                <p class="text-[10px] text-center text-slate-400">Pesanan akan langsung terhubung dengan CS AKSARA EV (+62 859-5925-0438)</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+    <script>
+        // DATA PACKAGES
+        const packagesData = {
+            pkg1: {
+                id: 'pkg1',
+                name: 'PAKET HOME CHARGING + INSTALASI',
+                price: 8500000,
+                badge: 'Praktis & siap pakai',
+                color: 'blue',
+                includes: [
+                    { icon: 'fa-charging-station', label: 'Wallcharger 7.7 kW' },
+                    { icon: 'fa-id-card', label: 'Kartu RFID 2 Buah' },
+                    { icon: 'fa-plug-circle-bolt', label: 'Kabel NYY 3x6mm (3 Meter)' },
+                    { icon: 'fa-box-archive', label: 'MCB Set Box' },
+                    { icon: 'fa-bolt', label: 'Grounding Set Complete' },
+                    { icon: 'fa-shield-halved', label: 'Buku Garansi Resmi' }
+                ]
+            },
+            pkg2: {
+                id: 'pkg2',
+                name: 'PAKET LENGKAP (INCL. SLO NIDI)',
+                price: 14500000,
+                badge: 'BEST BUY - Paling Lengkap & Hemat',
+                color: 'emerald',
+                includes: [
+                    { icon: 'fa-charging-station', label: 'Wallcharger 7.7 kW' },
+                    { icon: 'fa-gauge-high', label: 'Meteran Baru PLN 7.7 kW' },
+                    { icon: 'fa-file-signature', label: 'SLO NIDI Resmi' },
+                    { icon: 'fa-id-card', label: 'Kartu RFID 2 Buah' },
+                    { icon: 'fa-plug-circle-bolt', label: 'Kabel NYY 3x6mm (3 Meter)' },
+                    { icon: 'fa-box-archive', label: 'MCB Set Box' },
+                    { icon: 'fa-bolt', label: 'Grounding Set Complete' },
+                    { icon: 'fa-shield-halved', label: 'Buku Garansi Resmi' }
+                ]
+            }
+        };
+
+        // CART STATE
+        let cart = {};
+
+        // HELPER: Format Rupiah
+        function formatRupiah(number) {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                maximumFractionDigits: 0
+            }).format(number);
+        }
+
+        // QUANTITY ADJUSTER ON CARDS
+        function adjustQty(elementId, change) {
+            const el = document.getElementById(elementId);
+            let current = parseInt(el.innerText) || 1;
+            current += change;
+            if (current < 1) current = 1;
+            el.innerText = current;
+        }
+
+        // TOGGLE MODAL DISPLAY
+        function toggleModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+            } else {
+                modal.classList.add('hidden');
+            }
+        }
+
+        // OPEN DETAIL MODAL FOR SPECIFIC PACKAGE
+        function openDetailModal(pkgId) {
+            const pkg = packagesData[pkgId];
+            if (!pkg) return;
+
+            document.getElementById('detailTitle').innerText = pkg.name;
+            document.getElementById('detailPrice').innerText = formatRupiah(pkg.price);
+            document.getElementById('detailBadge').innerText = pkg.badge;
+
+            const includeList = document.getElementById('detailIncludeList');
+            includeList.innerHTML = '';
+
+            pkg.includes.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'flex items-center gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200';
+                itemDiv.innerHTML = `
+                    <div class="w-8 h-8 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center text-sm shrink-0">
+                        <i class="fa-solid ${item.icon}"></i>
+                    </div>
+                    <span class="text-sm font-bold text-slate-800">${item.label}</span>
+                `;
+                includeList.appendChild(itemDiv);
+            });
+
+            // Set Action Add to Cart from Detail
+            const addBtn = document.getElementById('modalAddToCartBtn');
+            addBtn.onclick = function() {
+                addToCart(pkgId, 1);
+                toggleModal('detailModal');
+                toggleModal('cartModal');
+            };
+
+            toggleModal('detailModal');
+        }
+
+        // ADD ITEM TO CART LOGIC
+        function addToCart(pkgId, qty = 1) {
+            if (cart[pkgId]) {
+                cart[pkgId].qty += qty;
+            } else {
+                cart[pkgId] = {
+                    ...packagesData[pkgId],
+                    qty: qty
+                };
+            }
+            updateCartUI();
+        }
+
+        function addToCartFromCard(pkgId, qtyElementId) {
+            const qty = parseInt(document.getElementById(qtyElementId).innerText) || 1;
+            addToCart(pkgId, qty);
+            toggleModal('cartModal');
+        }
+
+        // UPDATE CART UI & CALCULATE TOTALS
+        function updateCartUI() {
+            const container = document.getElementById('cartItemsContainer');
+            const badge = document.getElementById('cartBadge');
+            container.innerHTML = '';
+
+            let totalItems = 0;
+            let totalPrice = 0;
+
+            const cartKeys = Object.keys(cart);
+
+            if (cartKeys.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-8 text-slate-400">
+                        <i class="fa-solid fa-cart-flatbed text-4xl mb-2"></i>
+                        <p class="text-sm font-medium">Keranjang belanja Anda masih kosong.</p>
+                    </div>
+                `;
+            } else {
+                cartKeys.forEach(key => {
+                    const item = cart[key];
+                    const itemTotal = item.price * item.qty;
+                    totalItems += item.qty;
+                    totalPrice += itemTotal;
+
+                    const itemCard = document.createElement('div');
+                    itemCard.className = 'flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 border border-slate-200';
+                    itemCard.innerHTML = `
+                        <div class="space-y-1">
+                            <h5 class="text-xs font-black text-slate-900">${item.name}</h5>
+                            <p class="text-xs text-blue-600 font-bold">${formatRupiah(item.price)} x ${item.qty}</p>
+                            <span class="text-xs font-extrabold text-slate-800">Total: ${formatRupiah(itemTotal)}</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="flex items-center border border-slate-300 rounded-lg bg-white">
+                                <button onclick="changeCartQty('${key}', -1)" class="px-2 py-1 text-xs font-bold text-slate-600 hover:bg-slate-100">-</button>
+                                <span class="px-2 text-xs font-bold">${item.qty}</span>
+                                <button onclick="changeCartQty('${key}', 1)" class="px-2 py-1 text-xs font-bold text-slate-600 hover:bg-slate-100">+</button>
+                            </div>
+                            <button onclick="removeFromCart('${key}')" class="text-rose-500 hover:text-rose-700 p-1">
+                                <i class="fa-solid fa-trash-can text-sm"></i>
+                            </button>
+                        </div>
+                    `;
+                    container.appendChild(itemCard);
+                });
+            }
+
+            // Update Badge Count
+            if (totalItems > 0) {
+                badge.innerText = totalItems;
+                badge.classList.remove('scale-0');
+            } else {
+                badge.innerText = '0';
+                badge.classList.add('scale-0');
+            }
+
+            // Update Price Displays
+            document.getElementById('cartSubtotal').innerText = formatRupiah(totalPrice);
+            document.getElementById('cartGrandTotal').innerText = formatRupiah(totalPrice);
+        }
+
+        // CHANGE CART QUANTITY DIRECTLY
+        function changeCartQty(pkgId, delta) {
+            if (cart[pkgId]) {
+                cart[pkgId].qty += delta;
+                if (cart[pkgId].qty <= 0) {
+                    delete cart[pkgId];
+                }
+                updateCartUI();
+            }
+        }
+
+        // REMOVE ITEM FROM CART
+        function removeFromCart(pkgId) {
+            if (cart[pkgId]) {
+                delete cart[pkgId];
+                updateCartUI();
+            }
+        }
+
+        // PROCESS CHECKOUT AND FORMAT WHATSAPP MESSAGE
+        function processCheckoutWA() {
+            const name = document.getElementById('buyerName').value.trim();
+            const contact = document.getElementById('buyerContact').value.trim();
+            const notes = document.getElementById('buyerNotes').value.trim();
+
+            if (!name || !contact) {
+                alert('Mohon isi Nama Lengkap dan Nomor Telepon/Email Anda.');
+                return;
+            }
+
+            const cartKeys = Object.keys(cart);
+            if (cartKeys.length === 0) {
+                alert('Keranjang belanja Anda kosong. Silakan pilih paket terlebih dahulu.');
+                return;
+            }
+
+            let message = `*HALO AKSARA EV, SAYA INGIN MEMESAN EV HOME CHARGING*\n\n`;
+            message += `*DATADIRI PEMBELI:*\n`;
+            message += `• *Nama:* ${name}\n`;
+            message += `• *Kontak/Email:* ${contact}\n`;
+            if (notes) {
+                message += `• *Catatan:* ${notes}\n`;
+            }
+            message += `\n--------------------------------\n`;
+            message += `*RINCIAN PESANAN:*\n`;
+
+            let grandTotal = 0;
+            cartKeys.forEach((key, index) => {
+                const item = cart[key];
+                const sub = item.price * item.qty;
+                grandTotal += sub;
+                message += `${index + 1}. *${item.name}*\n   ${item.qty} x ${formatRupiah(item.price)} = ${formatRupiah(sub)}\n`;
+            });
+
+            message += `--------------------------------\n`;
+            message += `*TOTAL PEMBAYARAN:* ${formatRupiah(grandTotal)}\n\n`;
+            message += `Mohon konfirmasi dan info alur pemasangan selanjutnya. Terima kasih!`;
+
+            const encodedMessage = encodeURIComponent(message);
+            const waNumber = '6285959250438';
+            const waUrl = `https://wa.me/${waNumber}?text=${encodedMessage}`;
+
+            // Open WhatsApp in new tab
+            window.open(waUrl, '_blank');
+        }
+
+        // Initialize UI on load
+        window.onload = function() {
+            updateCartUI();
+        };
+    </script>
+</body>
+</html>
